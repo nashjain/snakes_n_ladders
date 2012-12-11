@@ -8,11 +8,17 @@ class Snakes_N_Ladders_Game
     @snakes_ladders = random_board(game_modes[mode], board_size)
   end
   
-  def start
+  def play
      players_starting_positions = @players.map{0}
      starting_player = rand(@players.length)
      winner = move(players_starting_positions, starting_player)
      puts "#{@players[winner]} won!"
+  end
+  
+  private
+
+  def throw_dice
+    1 + rand(6)
   end
   
   def move(players, player_turn)
@@ -22,12 +28,6 @@ class Snakes_N_Ladders_Game
     players[player_turn] = new_position
     next_player = (player_turn + 1) % players.length
     move(players, next_player)
-  end
-  
-  private
-
-  def throw_dice
-    1 + rand(6)
   end
   
   def random_board(no_of_snakes_ladders, board_size)
@@ -52,6 +52,6 @@ end
 
 players = ["Ward", "Kent", "Ron"]
 easy_game = Snakes_N_Ladders_Game.new(players)
-easy_game.start
+easy_game.play
 hard_game = Snakes_N_Ladders_Game.new(players, :Hard, 50)
-hard_game.start
+hard_game.play
